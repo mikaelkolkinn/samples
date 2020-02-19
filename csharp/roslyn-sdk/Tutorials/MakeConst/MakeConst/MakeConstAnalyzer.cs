@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -38,6 +39,10 @@ namespace MakeConst
 
         private void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
+            const string jsonString = "{\"system.text.json\": \"works\"}";
+            var result = JsonDocument.Parse(jsonString);
+            var works = result.RootElement.GetProperty("system.text.json");
+
             var localDeclaration = (LocalDeclarationStatementSyntax)context.Node;
 
             // does not have const
